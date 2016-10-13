@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string
 # Create your views here.
 def index(request):
-    return render(request,'randomWorld/index.html')
+    print("*"*50)
+    return render(request,'randomworld/index.html')
 
 def word(request):
     if request.method == 'POST':
