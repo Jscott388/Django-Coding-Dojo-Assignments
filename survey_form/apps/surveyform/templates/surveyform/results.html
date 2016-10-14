@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"></link>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m7">
+                <h2 class="header">Submitted Infomation</h2>
+                <div class="card horizontal">
+                    <div class="card-image">
+                        <i class="large material-icons">perm_identity</i>
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p>Name: {{request.session.name}}</p>
+                            <p>
+                                Location: {{request.session.location}}
+                            </p>
+                            <p>
+                                Favorite Language: {{request.session.language}}
+                            </p>
+                            <p>
+                                Comments: {{request.session.comments}}
+                            </p>
+                        </div>
+                        <div class="card-action">
+                            <a href="/">Go Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
