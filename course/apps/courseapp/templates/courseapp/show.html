@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Course - {{course.name}}</title>
+
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"></link>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+</head>
+
+<body>
+    <nav class="black" role="navigation">
+        <div class="nav-wrapper container">
+            <a href="{% url 'index' %}" class="brand-logo">Courses</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="card small">
+            <div class="card-content">
+                <span class="card-title">{{course.name}}</span>
+            </div>
+            <div class="card-content">
+                <p>
+                    {{course.description}}
+                </p>
+            </div>
+            <div class="card-action">
+                <a href="{% url 'edit' id=course.id %}" class="btn green">Edit</a>
+                <a class="btn red modal-trigger" href="#modal1">Delete</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <form action="{% url 'comment' id=course.id %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="input-field">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <textarea id="icon_prefix2" name="comment" class="materialize-textarea"></textarea>
+                        <label for="comment">Comment</label>
+                    </div>
+                </div>
+                <input type="submit" name="update" value="Add Comment" class="btn blue">
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div id="comments" class="comments-area">
+            {% for comment in course.comment_set.all %}
+            <div class="card horizontal">
+                <div class="card-image">
+                    <i class="medium material-icons">comment</i>
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <span class="card-title">{{comment.created_at}}</span>
+                        <p>
+                            {{comment.message}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <h4>Are you sure you want to delete the following course?</h4>
+                    <p>{{course.name}}</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'show' id=course.id %}" class="modal-action modal-close btn-flat Green">No</a>
+                    <a href="{% url 'delete' id=course.id %}" class="modal-action modal-close btn-flat Red">Yes I want to delete {{course.name}}</a>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+                    $('.modal-trigger').leanModal();
+                });
+            </script>
+</body>
+
+</html>
